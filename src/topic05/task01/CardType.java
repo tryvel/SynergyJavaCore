@@ -1,4 +1,4 @@
-package topic04.task01;
+package topic05.task01;
 
 public enum CardType {
     CREDIT("кредитная"),

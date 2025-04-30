@@ -1,4 +1,4 @@
-package topic04.task01;
+package topic05.task01;
 
 import java.time.YearMonth;
 
@@ -12,7 +12,8 @@ import java.time.YearMonth;
 - Тип карты (кредитная/дебетовая)
 - Поддержка NFC (true/false)
 При создании полей самостоятельно выбирайте типы данных, в комментариях
-к каждому полю укажите, почему выбрали именно такой тип.*/
+к каждому полю укажите, почему выбрали именно такой тип.
+Добавьте поле double balance = 1000.00. Реализуйте метод pay(double summ).*/
 
 public class Card {
     String bank;
@@ -22,6 +23,7 @@ public class Card {
     int cvv; // целое число 3 цифры
     CardType type; // предопределенные значения
     boolean nfc; // только два значения
+    double balance = 1000.00;
 
     public Card(String bank, String paymentSystem, long number, YearMonth expirationDate, int cvv, CardType type, boolean nfc) {
         this.bank = bank;
@@ -33,6 +35,15 @@ public class Card {
         this.nfc = nfc;
     }
 
+    public boolean pay(double summ){
+        if (this.balance >= summ) {
+            this.balance -= summ;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void getCardInfo() {
         System.out.printf("Информация о карте:\n" +
                 "Банк: " + bank + ", " +
@@ -41,7 +52,8 @@ public class Card {
                 "срок действия: %02d" + "/" + (expirationDate.getYear() % 100) + ", " +
                 "CVV: " + cvv + ", " +
                 "тип карты: " + type + ", " +
-                "NFC: " + (nfc ? "поддерживается" : "не поддерживается") + "\n", expirationDate.getMonthValue());
+                "NFC: " + (nfc ? "поддерживается" : "не поддерживается") + ", " +
+                "баланс: " + balance + "\n", expirationDate.getMonthValue());
     }
 
     public static void main(String[] args) {
@@ -52,6 +64,10 @@ public class Card {
                 357,
                 CardType.DEBIT,
                 true);
-        card.getCardInfo();
+//        card.getCardInfo();
+        for (int i = 0; i < 3; i++) {
+            System.out.println(card.pay(500.0));
+//            card.getCardInfo();
+        }
     }
 }
