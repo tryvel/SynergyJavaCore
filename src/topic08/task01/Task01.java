@@ -22,8 +22,9 @@ public class Task01 {
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Программа успешно завершена");
                 break;
+            } finally {
+                i++;
             }
-            i++;
         }
     }
 }
