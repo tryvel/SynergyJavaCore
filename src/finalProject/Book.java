@@ -1,21 +1,49 @@
 package finalProject;
 
-import java.time.Year;
-
+// Builder pattern (Паттерн проектирования Строитель)
 public class Book {
-    private static long id = 0L;
-    private long number;
+
+    // Обязательные параметры
     private String author;
     private String title;
-    private Year year;
-    private Genre genre;
+    private int year;
 
+    // Дополнительные параметры
+    private String genre;
 
-    public void setTitle(String title) {
-        if(title != null && !title.trim().isEmpty()) {
+    // Приватный конструктор запрещает напрямую создавать объект класса Book
+    private Book(Builder builder) {
+        this.author = builder.author;
+        this.title = builder.title;
+        this.year = builder.year;
+        this.genre = builder.genre;
+    }
+
+    // Статический вложенный класс Строитель
+    public static class Builder {
+        private String author;
+        private String title;
+        private int year;
+
+        private String genre = "не задан";      // значение по умолчанию
+
+        // Конструктор класса Builder
+        public Builder(String author, String title, int year) {
+            this.author = author;
             this.title = title;
-        } else {
-            throw new IllegalArgumentException("Поле 'Название' не должно быть пустым");
+            this.year = year;
+        }
+
+        // Сеттер genre
+        public Builder genre(String genre) {
+            this.genre = genre;
+            return this;
+        }
+
+        // Создание объекта класса Book
+        public Book build() {
+            return new Book(this);
         }
     }
+
 }
