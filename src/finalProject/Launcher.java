@@ -7,19 +7,19 @@ public class Launcher {
         Scanner scanner = new Scanner(System.in);
         Library library = new Library();
 
-        // Создание книги и добавление в библиотеку
+        // Демонстрация создания книги посредством builder
         Book book = new Book.Builder()              // создание объекта класса Builder
                 .author("Марк Твен")                // задание параметров
                 .title("Принц и нищий")
                 .year(2011)
                 .genre("Приключения, Детективы")
                 .build();       // создание объекта класса Book из объекта Builder после валидации
-        library.addBook(book);
 
         while (true) {
-            System.out.println("Введите команду (--exit - выход, --add - добавить книгу)");
+            System.out.println("Введите команду (--exit - выход, --add - добавить книгу, --list - вывести список книг)");
             String command = scanner.nextLine();
             if (command.equals("--exit")) {
+                library.writeBooksToFile();
                 break;
             } else if (command.equals("--add")) {
                 if (library.addBookFromTerminal()) {
@@ -27,6 +27,8 @@ public class Launcher {
                 } else {
                     System.out.println("Процесс добавления книги прерван");
                 }
+            } else if (command.equals("--list")) {
+                library.showListBooks();
             }
 
         }

@@ -8,7 +8,12 @@ public class Library {
     private List<Book> books;
 
     public Library() {
-        books = new ArrayList<>();
+        try {
+            books = XmlDom.readBooks();
+        } catch (Exception e) {
+            books = new ArrayList<>();
+            System.out.println("Ошибка чтения списка книг из файла!");
+        }
     }
 
     public void addBook(Book book) {
@@ -70,5 +75,16 @@ public class Library {
         System.out.println(book);
 
         return true;
+    }
+
+    public void writeBooksToFile () {
+        XmlDom.writeBooks(books);
+    }
+
+    // Вывод списка книг
+    public void showListBooks () {
+        for (Book book : books) {
+            System.out.println(book);
+        }
     }
 }

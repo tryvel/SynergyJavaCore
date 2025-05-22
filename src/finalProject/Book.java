@@ -26,10 +26,30 @@ public class Book {
         this.genre = builder.genre;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
     @Override
     public String toString() {
-        return "Номер: " + id +
-                ", автор: " + author +
+        return id +
+                " - автор: " + author +
                 ", название: " + title +
                 ", год издания: " + year +
                 ", жанр: " + genre;
