@@ -8,29 +8,26 @@ public class Launcher {
         Library library = new Library();
 
         // Демонстрация создания книги посредством builder
-        Book book = new Book.Builder()              // создание объекта класса Builder
+        /*Book book = new Book.Builder()              // создание объекта класса Builder
                 .author("Марк Твен")                // задание параметров
                 .title("Принц и нищий")
                 .year(2011)
                 .genre("Приключения, Детективы")
-                .build();       // создание объекта класса Book из объекта Builder после валидации
+                .build();       // создание объекта класса Book из объекта Builder после валидации*/
 
         while (true) {
-            System.out.println("Введите команду (--exit - выход, --add - добавить книгу, --list - вывести список книг)");
+            System.out.println("Введите команду (--list - вывести список книг, --add - добавить книгу, --exit - выход)");
             String command = scanner.nextLine();
-            if (command.equals("--exit")) {
+            if (command.equals("--list")) {
+                library.showListBooks();
+            } else if (command.equals("--add")) {
+                library.addBookFromTerminal();
+            } else if (command.equals("--exit")) {
                 library.writeBooksToFile();
                 break;
-            } else if (command.equals("--add")) {
-                if (library.addBookFromTerminal()) {
-                    System.out.println("Книга успешно добавлена в библиотеку");
-                } else {
-                    System.out.println("Процесс добавления книги прерван");
-                }
-            } else if (command.equals("--list")) {
-                library.showListBooks();
+            } else {
+                System.out.println("Неизвестная команда");
             }
-
         }
 
         System.out.println("Работа программы завершена");

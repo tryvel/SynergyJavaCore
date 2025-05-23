@@ -22,13 +22,13 @@ public class XmlDom {
     public static void writeBooks (List<Book> books) {
         // Создание нового документа
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = null;
+        Document doc = null;
         try {
-            builder = builderFactory.newDocumentBuilder();
+            DocumentBuilder builder = builderFactory.newDocumentBuilder();
+            doc = builder.newDocument();
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         }
-        Document doc = builder.newDocument();
 
         // Создание корневого элемента 'library'
         Element library = doc.createElement("library");

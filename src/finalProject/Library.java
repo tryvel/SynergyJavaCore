@@ -19,13 +19,26 @@ public class Library {
     public void addBook(Book book) {
         books.add(book);
     }
+
     // Добавление книги согласно информации, введенной пользователем
-    public boolean addBookFromTerminal() {
+    public void addBookFromTerminal() {
+        Book.Builder builder = new Book.Builder();
+
+        if (requestBuilderParameters(builder)) {
+            Book book = builder.build();        // создание книги методом build() объекта builder
+            books.add(book);
+            System.out.println("Книга '" + book + "' успешно добавлена в библиотеку");
+        } else {
+            System.out.println("Процесс добавления книги прерван");
+        }
+    }
+
+    // Запрос параметров builder с верификацией
+    private boolean requestBuilderParameters (Book.Builder builder) {
         Scanner scanner = new Scanner(System.in);
         String command;
-        Book.Builder builder = new Book.Builder();      // builder для определения корректных параметров книги
 
-        System.out.println("Введите информацию о книге (для прерывания процесса введите '--break')");
+        System.out.println("Введите информацию о книге (для прерывания процесса на любом этапе введите '--break')");
         while (true) {
             System.out.print("Автор: ");
             if ((command = scanner.nextLine()).equals("--break")) {
@@ -69,10 +82,6 @@ public class Library {
             return false;
         }
         builder.genre(command);
-
-        Book book = builder.build();        // создание книги методом build объекта builder
-        addBook(book);
-        System.out.println(book);
 
         return true;
     }
