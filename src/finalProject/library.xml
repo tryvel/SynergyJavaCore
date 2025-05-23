@@ -18,4 +18,58 @@
         <year>2018</year>
         <genre>Детектив</genre>
     </book>
+    <book id="4">
+        <author>Михаил Юрьевич Лермонтов</author>
+        <title>Герой нашего времени</title>
+        <year>2015</year>
+        <genre>Роман</genre>
+    </book>
+    <book id="5">
+        <author>Михаил Юрьевич Лермонтов</author>
+        <title>Мцыри</title>
+        <year>2017</year>
+        <genre>Романтическая поэма</genre>
+    </book>
+    <book id="6">
+        <author>Михаил Афанасьевич Булгаков</author>
+        <title>Мастер и Маргарита</title>
+        <year>2019</year>
+        <genre>Роман</genre>
+    </book>
+    <book id="7">
+        <author>Михаил Афанасьевич Булгаков</author>
+        <title>Собачье сердце</title>
+        <year>2016</year>
+        <genre>Повесть</genre>
+    </book>
+    <book id="8">
+        <author>Михаил Афанасьевич Булгаков</author>
+        <title>Белая гвардия</title>
+        <year>2018</year>
+        <genre>Роман</genre>
+    </book>
+    <book id="9">
+        <author>Неизвестный автор</author>
+        <title>Книга для удаления</title>
+        <year>2000</year>
+        <genre>Не задан</genre>
+    </book>
+    <book id="10">
+        <author>Федор Михайлович Достоевский</author>
+        <title>Преступление и наказание</title>
+        <year>2015</year>
+        <genre>Роман, Драма</genre>
+    </book>
+    <book id="11">
+        <author>Федор Михайлович Достоевский</author>
+        <title>Идиот</title>
+        <year>2017</year>
+        <genre>Роман</genre>
+    </book>
+    <book id="12">
+        <author>Федор Михайлович Достоевский</author>
+        <title>Братья Карамазовы</title>
+        <year>2019</year>
+        <genre>Роман</genre>
+    </book>
 </library>
