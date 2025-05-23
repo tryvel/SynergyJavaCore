@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<library>
+    <book id="1">
+        <author>Марк Твен</author>
+        <title>Принц и нищий</title>
+        <year>2011</year>
+        <genre>Приключения, Детективы</genre>
+    </book>
+    <book id="2">
+        <author>Марк Твен</author>
+        <title>Приключения Тома Сойера</title>
+        <year>2020</year>
+        <genre>Приключения, Детективы</genre>
+    </book>
+    <book id="3">
+        <author>Артур Конан Дойл</author>
+        <title>Приключения Шерлока Холмса</title>
+        <year>2018</year>
+        <genre>Детектив</genre>
+    </book>
+</library>
