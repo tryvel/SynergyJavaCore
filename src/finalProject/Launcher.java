@@ -16,12 +16,21 @@ public class Launcher {
                 .build();       // создание объекта класса Book из объекта Builder после валидации*/
 
         while (true) {
-            System.out.println("Введите команду (--list - вывести список книг, --add - добавить книгу, --exit - выход)");
+            System.out.println("\nВведите команду (" +
+                    "'--list' - вывести список книг, " +
+                    "'--find' - поиск книг, " +
+                    "'--add' - добавить книгу, " +
+                    "'--rem' - удалить книгу, " +
+                    "'--exit' - выход)");
             String command = scanner.nextLine();
             if (command.equals("--list")) {
-                library.showListBooks();
+                library.showListBooks(library.getBooks());
+            } else if (command.equals("--find")) {
+                library.findBooks();
             } else if (command.equals("--add")) {
-                library.addBookFromTerminal();
+                library.addBook();
+            } else if (command.equals("--rem")) {
+                library.removeBook();
             } else if (command.equals("--exit")) {
                 library.writeBooksToFile();
                 break;
