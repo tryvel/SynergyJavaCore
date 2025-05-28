@@ -23,19 +23,16 @@ public class Launcher {
                     "'--rem' - удалить книгу, " +
                     "'--exit' - выход)");
             String command = scanner.nextLine();
-            if (command.equals("--list")) {
-                library.showListBooks(library.getBooks());
-            } else if (command.equals("--find")) {
-                library.findBooks();
-            } else if (command.equals("--add")) {
-                library.addBook();
-            } else if (command.equals("--rem")) {
-                library.removeBook();
-            } else if (command.equals("--exit")) {
+            if (command.equals("--exit")) {
                 library.writeBooksToFile();
                 break;
-            } else {
-                System.out.println("Неизвестная команда");
+            }
+            switch (command) {
+                case "--list" -> library.showListBooks(library.getBooks());
+                case "--find" -> library.findBooks();
+                case "--add" -> library.addBook();
+                case "--rem" -> library.removeBook();
+                default -> System.out.println("Неизвестная команда");
             }
         }
 

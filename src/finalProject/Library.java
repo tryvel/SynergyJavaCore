@@ -33,83 +33,92 @@ public class Library {
 
     // Запрос параметров builder с верификацией
     private boolean requestBuilderParameters (Book.Builder builder) {
-        Scanner scanner = new Scanner(System.in);
-        String command;
-
         System.out.println("Введите информацию о книге (для прерывания процесса на любом этапе введите '--break')");
-        while (true) {
-            System.out.print("Автор: ");
-            if ((command = scanner.nextLine()).equals("--break")) {
-                return false;
-            }
-            try {
-                builder.author(command);
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        while (true) {
-            System.out.print("Название: ");
-            if ((command = scanner.nextLine()).equals("--break")) {
-                return false;
-            }
-            try {
-                builder.title(command);
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        while (true) {
-            System.out.print("Год издания: ");
-            if ((command = scanner.nextLine()).equals("--break")) {
-                return false;
-            }
-            try {
-                builder.year(Integer.parseInt(command));
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Необходимо ввести целое число");
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        System.out.print("Жанр (для пропуска оставьте поле пустым): ");
-        if ((command = scanner.nextLine()).equals("--break")) {
+        // верификация и вывод сообщений об ошибке выполняется методами класса Builder
+        String input;
+        input = TerminalReader.inputWithValidation(
+                "Автор: ",
+                s -> {
+                    try {
+                        builder.author(s);
+                        return true;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    return false;
+                    },
+                null);
+        if (input.equals("--break"))
             return false;
-        }
-        builder.genre(command);
+
+        input = TerminalReader.inputWithValidation(
+                "Название: ",
+                s -> {
+                    try {
+                        builder.title(s);
+                        return true;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    return false;
+                    },
+                null);
+        if (input.equals("--break"))
+            return false;
+
+        input = TerminalReader.inputWithValidation(
+                "Год издания: ",
+                s -> {
+                    try {
+                        builder.year(Integer.parseInt(s));
+                        return true;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Необходимо ввести целое число");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    return false;
+                },
+                null);
+        if (input.equals("--break"))
+            return false;
+
+        input = TerminalReader.inputWithValidation(
+                "Жанр (для пропуска оставьте поле пустым): ",s -> true,null);
+        if (input.equals("--break"))
+            return false;
+        builder.genre(input);
 
         return true;
     }
 
     // Удаление книги по id
     public void removeBook() {
-        Scanner scanner = new Scanner(System.in);
-        String command;
         long id;
 
-        System.out.println("Введите номер книги для удаления (для прерывания процесса введите '--break')");
-        while (true) {
-            System.out.print("Номер: ");
-            if ((command = scanner.nextLine()).equals("--break")) {
-                System.out.println("Процесс удаления книги прерван");
-                return;
-            }
-            try {
-                id = Long.parseLong(command);
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Необходимо ввести целое число");
-            }
+        String input = TerminalReader.inputWithValidation(
+                "Введите номер книги для удаления (для прерывания процесса введите '--break'): ",
+                s -> s.matches("\\d+") || s.equals("--break"),
+                "Необходимо ввести целое число больше 0"
+        );
+        if (input.equals("--break")) {
+            System.out.println("Процесс удаления книги прерван");
+            return;
+        } else {
+            id = Long.parseLong(input);
         }
+
         Iterator<Book> iterator = books.iterator();     // итератор для прохода по списку
         while (iterator.hasNext()) {
             Book book = iterator.next();
             if (book.getId() == id) {
-                System.out.print("Удалить книгу '" + book + "'? ('y' - подтвердить, другое значение - отменить): ");
-                if (scanner.nextLine().equals("y")) {
+                input = TerminalReader.inputWithValidation(
+                        "Удалить книгу '" + book + "'? ('y' - подтвердить, 'n' - отменить): ",
+                        s -> s.matches("[YyNn]"),
+                        "Допустимые значения 'y' или 'n'"
+                );
+
+                if (input.equalsIgnoreCase("y")) {
                     iterator.remove();
                     System.out.println("Книга успешно удалена");
                 } else {
@@ -122,23 +131,13 @@ public class Library {
     }
 
     public void findBooks() {
+        int item = Integer.parseInt(TerminalReader.inputWithValidation(
+                "Укажите по какому параметру выполнить поиск (1 - автор, 2 - название, 0 - отменить): ",
+                s -> s.matches("[012]"),
+                "Необходимо ввести значение от 0 до 2"
+        ));
+
         Scanner scanner = new Scanner(System.in);
-
-        int item = -1;
-        while (item < 0 || item > 2) {
-            System.out.println("Укажите по какому параметру выполнить поиск (1 - автор, 2 - название, 0 - отменить)");
-            try {
-                item = scanner.nextInt();
-                if (item < 0 || item > 2) {
-                    System.out.println("Необходимо ввести значение от 0 до 2");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Необходимо ввести целое число");
-                scanner.nextLine();     // очистка буфера сканера
-            }
-        }
-        scanner.nextLine();             // очистка буфера сканера
-
         List<Book> findBooks = null;
         String text;
         switch (item) {
